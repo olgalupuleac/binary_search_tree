@@ -11,7 +11,7 @@ lookup x (Node k v left right) | x == k  = Just v
 lookup x _                               = Nothing
 
 insert :: Ord k => k -> v -> BinaryTree k v -> BinaryTree k v
-insert x y (Empty)                        = Node x y Empty Empty 
+insert x y Empty                          = Node x y Empty Empty 
 insert x y (Node k v left right) | x > k  = Node k v left (insert x y right)
                                  | x < k  = Node k v (insert x y left) right
                                  | x == k = Node k y left right
@@ -27,5 +27,4 @@ delete x (Node k v left right)  | x == k  = Node (fst (find_right(left))) (snd (
                                 | x < k   = Node k v (delete x left) right
                    
 find_right (Node k v _ Empty) = (k, v)
-find_right (Node k v _ right) = find_right right
---find_right Empty              = Nothing
+find_right (Node k v _ right) = find_right right
